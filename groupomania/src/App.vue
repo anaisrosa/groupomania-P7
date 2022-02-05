@@ -6,7 +6,7 @@
     <router-link to="/feed"> Feed </router-link> 
 
   </div>
-  <router-view/>
+  <router-view :key="$route.path"></router-view>
 </div>
 </template>
 
@@ -17,6 +17,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0 30%;
 }
 
 #nav {

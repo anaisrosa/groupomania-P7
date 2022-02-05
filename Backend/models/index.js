@@ -27,14 +27,19 @@ db.User.hasOne(db.Post, {
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 });
-// db.Post.belongsTo(db.User);
+
+db.Post.belongsTo(db.User);
+
 db.User.hasOne(db.Comment, {
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
-}); // A HasOne B
+});
+db.Comment.belongsTo(db.User);
+// A HasOne B
 db.Post.hasOne(db.Comment,{
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 });
+db.Comment.belongsTo(db.Post);
 
 module.exports = db;

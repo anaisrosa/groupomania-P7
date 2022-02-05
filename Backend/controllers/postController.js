@@ -1,5 +1,6 @@
 const db = require("../models");
 const Post = db.Post;
+const User = db.User;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Post
@@ -34,12 +35,14 @@ exports.create = (req, res) => {
 
 // Retrieve all Posts/ find by title from the database:
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-  Post.findAll({ where: condition })
+  Post.findAll({ include: {
+    model: User,
+    attributes: ["pseudo"]
+    
+  } })
     .then((data) => {
       res.send(data);
+      
     })
     .catch((err) => {
       res.status(500).send({
