@@ -4,7 +4,7 @@ const User = db.User;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Post
-exports.create = (req, res) => {
+exports.createPost = (req, res) => {
   // Validate request
   if (!req.body.title) {
     res.status(400).send({
@@ -34,7 +34,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Posts/ find by title from the database:
-exports.findAll = (req, res) => {
+exports.findAllPosts = (req, res) => {
   Post.findAll({ include: {
     model: User,
     attributes: ["pseudo"]
@@ -53,13 +53,20 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single Post with an id
-exports.findOne = (req, res) => {
+exports.findOnePost = (req, res) => {
   const id = req.params.id;
 
-  Post.findByPk(id)
+  Post.findAll({
+    where : { id }, 
+    include: {
+      model: User,
+      attributes: ["pseudo"]
+      
+    } 
+  })
     .then((data) => {
       if (data) {
-        res.send(data);
+        res.send(data[0]);
       } else {
         res.status(404).send({
           message: `Cannot find Post with id=${id}.`,
@@ -74,7 +81,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Post by the id in the request
-exports.update = (req, res) => {
+exports.updatePost = (req, res) => {
   const id = req.params.id;
 
   Post.update(req.body, {
@@ -99,7 +106,7 @@ exports.update = (req, res) => {
 };
 
 // Delete a Post with the specified id in the request
-exports.delete = (req, res) => {
+exports.deletePost = (req, res) => {
   const id = req.params.id;
 
   Post.destroy({
@@ -124,7 +131,7 @@ exports.delete = (req, res) => {
 };
 
 // Delete all Posts from the database.
-exports.deleteAll = (req, res) => {
+exports.deleteAllPosts = (req, res) => {
   Post.destroy({
     where: {},
     truncate: false,
@@ -140,19 +147,6 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// Find all published Posts
-exports.findAllPublished = (req, res) => {
-  Post.findAll({ where: { published: true } })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Posts."
-      });
-    });
-};
 
 
  

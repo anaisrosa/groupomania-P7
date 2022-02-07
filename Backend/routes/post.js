@@ -3,25 +3,22 @@ const router = express.Router();
 const postCtrl = require("../controllers/postController");
 
 // Create a new Post    
-router.post("/", postCtrl.create);
+router.post("/", postCtrl.createPost);
   
 // Retrieve all Posts
-router.get("/", postCtrl.findAll);
-
-// Retrieve all published Posts
-router.get("/published", postCtrl.findAllPublished);
+router.get("/", postCtrl.findAllPosts);
 
 // Retrieve a single Post with id
-router.get("/:id", postCtrl.findOne);
+router.get("/:id", postCtrl.findOnePost);
 
 // Update a Post with id
-router.put("/:id", postCtrl.update);
+router.put("/:id", postCtrl.updatePost);
 
 // Delete a Post with id
-router.delete("/:id", postCtrl.delete);
+router.delete("/:id", postCtrl.deletePost);
 
 // Delete all Posts
-router.delete("/", postCtrl.deleteAll);
+router.delete("/", postCtrl.deleteAllPosts);
 
 module.exports = router;
 
