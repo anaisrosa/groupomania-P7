@@ -43,7 +43,8 @@ export default {
         userId: ""
 
       },
-    };
+     
+    }
   },
   methods: {
     async submitPost() {

@@ -3,7 +3,12 @@ module.exports = (sequelize, Sequelize) => {
     content: {
       type: Sequelize.TEXT, 
       allowNull : false
-    }
+    },
+    reported: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
 
   });
   return Comment;

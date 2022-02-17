@@ -1,13 +1,14 @@
 <template>
-  <section class="post">
+  <article class="post">
     <h1>Le titre du post est {{ post.title }}</h1>
     <p>Le contenu du post est {{ post.content }}</p>
-    <p>Posté par : {{ post.user.pseudo }}</p>
+    <p>Posté par : {{ post.user.pseudo }} </p>
+    <p>le : {{ dateParser(post.createdAt) }}</p>
 
     <!-- FORMULAIRE NOUVEAU COMMENTAIRE -->
     <form @submit.prevent="submitComment">
       <div>
-        <label for="commentContent">Commentaire:</label>
+        <label for="commentContent">Commentaire: </label>
         <input
           v-model="new_comment.content"
           type="text"
@@ -15,15 +16,22 @@
           id="commentContent"
           required
         />
+        <button @click.prevent="submitComment"> Commenter</button>
         <p id="commentContentErrorMsg"></p>
       </div>
     </form>
     <!-- AFFICHAGE DES COMMENTAIRES -->
     <div v-for="comment in comments" v-bind:key="comment.id" class="comments">
       <p>{{ comment.content }}</p>
-      <p>Posté par : {{ post.user.pseudo }}</p>
+      <p>Posté par : {{ comment.user.pseudo }}</p>
+        <button
+          v-if="comment.userId !== visitorId"
+          @click="deletePostById(post.id, i)"
+        >
+          <fa icon="circle-exclamation"/>
+        </button>
     </div>
-  </section>
+  </article>
 </template>
 
 <script>
@@ -45,6 +53,7 @@ export default {
         content: "",
         userId: "",
       },
+       visitorId: Storage.get().userId
     };
   },
 
@@ -84,6 +93,15 @@ export default {
       const dataResult = await res.json();
       console.log(dataResult);
     },
+
+      dateParser(date) {
+      let newDate = new Date(date).toLocaleString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      return newDate;
+    },
   },
 
   computed: {
@@ -109,10 +127,25 @@ a {
   color: #2c3e50;
 }
 
-section {
-  border: solid 4px #42b983;
-  border-radius: 1rem;
+article {
+  background-color: #42b983;
+  border-radius: 0.75rem;
   padding: 1rem;
   margin: 1rem 0;
+  text-align: left;
+}
+
+input {
+  border-radius: 0.25rem;
+  border: none;
+
+}
+
+.comments{
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin: 1rem 0;
+
 }
 </style>

@@ -101,6 +101,33 @@ exports.updateComment = (req, res) => {
     });
 };
 
+// Report a Post by the id in the request
+exports.reportComment = (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  Post.update(req.body, {
+    where: { id: id },
+    
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Post was updated successfully.",
+        });
+      } else {
+        res.send({
+          message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Post with id=" + id,
+      });
+    });
+};
+
 // Delete a Comment with the specified id in the request
 exports.deleteComment = (req, res) => {
   const id = req.params.id;

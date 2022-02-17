@@ -9,25 +9,42 @@
           <h3>{{ post.title }}</h3>
           <p>{{ post.content }}</p>
           <p>Posté par : {{ post.user.pseudo }}</p>
+          <p>le : {{ dateParser(post.createdAt) }}</p>
         </router-link>
-        <button>Modifier</button> |
-        <button @click="deletePostById(post.id, i)">Suprimer ce post</button>
-        <!-- <button @click="deleteAllData">Suprimer tout</button> -->
+        <router-link :to="{ name: 'ModifyPost', params: { id: post.id } }"
+          ><button v-if="post.userId === visitorId">
+            <fa icon="pen-to-square"/>
+          </button></router-link
+        >
+        <button
+          v-if="post.userId === visitorId"
+          @click="deletePostById(post.id, i)"
+        >
+          <fa icon="trash-can"/>
+        </button>
+        <button
+          v-if="post.userId !== visitorId"
+          @click="deletePostById(post.id, i)"
+        >
+          <fa icon="circle-exclamation"/>
+        </button>
+        
       </article>
     </div>
   </div>
 </template>
 
 <script>
-
+import Storage from "@/services/storageService.js";
 
 export default {
   name: "Feed",
   data() {
     let posts = [];
+
     return {
       posts,
-      
+      visitorId: Storage.get().userId,
     };
   },
   methods: {
@@ -40,7 +57,6 @@ export default {
         console.log(error);
       }
     },
-    
 
     formatresponse(dataResult) {
       return JSON.stringify(dataResult, null);
@@ -55,6 +71,14 @@ export default {
       } catch (err) {
         this.deleteResult = err.message;
       }
+    },
+    dateParser(date) {
+      let newDate = new Date(date).toLocaleString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      return newDate;
     },
   
   },

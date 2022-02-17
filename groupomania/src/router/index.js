@@ -3,6 +3,7 @@ import NewPost from '../views/NewPost.vue'
 import SignUp from '../views/Signup.vue'
 import Feed from '../views/Feed.vue'
 import DetailsPost from '../views/DetailsPost.vue'
+import ModifyPost from '../views/ModifyPost.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/posts/:id',
     name: 'DetailsPost',
     component: DetailsPost
+  },
+  {
+    path: '/modify-post',
+    name: 'ModifyPost',
+    component: ModifyPost
   },
  
 ]

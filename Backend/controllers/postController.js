@@ -33,7 +33,7 @@ exports.createPost = (req, res) => {
     });
 };
 
-// Retrieve all Posts/ find by title from the database:
+// Retrieve all Posts
 exports.findAllPosts = (req, res) => {
   Post.findAll({ include: {
     model: User,
@@ -83,9 +83,38 @@ exports.findOnePost = (req, res) => {
 // Update a Post by the id in the request
 exports.updatePost = (req, res) => {
   const id = req.params.id;
+  console.log(id);
 
   Post.update(req.body, {
     where: { id: id },
+    
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Post was updated successfully.",
+        });
+      } else {
+        res.send({
+          message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Post with id=" + id,
+      });
+    });
+};
+
+// Report a Post by the id in the request
+exports.reportPost = (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  Post.update(req.body, {
+    where: { id: id },
+    
   })
     .then((num) => {
       if (num == 1) {
