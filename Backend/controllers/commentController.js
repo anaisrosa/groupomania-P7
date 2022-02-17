@@ -104,26 +104,24 @@ exports.updateComment = (req, res) => {
 // Report a Post by the id in the request
 exports.reportComment = (req, res) => {
   const id = req.params.id;
-  console.log(id);
 
-  Post.update(req.body, {
+  Comment.update(req.body, {
     where: { id: id },
-    
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Post was updated successfully.",
+          message: "Comment was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`,
+          message: `Cannot update Comment with id=${id}. Maybe Comment was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Post with id=" + id,
+        message: "Error updating Comment with id=" + id,
       });
     });
 };

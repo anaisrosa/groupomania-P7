@@ -15,7 +15,7 @@ router.get("/:id", commentCtrl.findOneComment);
 router.put("/:id", commentCtrl.updateComment);
 
 // Report a Post with id
-router.put("report/:id", postCtrl.reportComment);
+router.put("report/:id", commentCtrl.reportComment);
 
 // Delete a Post with id
 router.delete("/:id", commentCtrl.deleteComment);
