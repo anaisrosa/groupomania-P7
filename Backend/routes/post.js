@@ -15,13 +15,11 @@ router.get("/:id", postCtrl.findOnePost);
 router.put("/:id", postCtrl.updatePost);
 
 // Report a Post with id
-router.put("/report/:id", postCtrl.reportPost);
+router.put("/report-post/:id", postCtrl.reportPost);
 
 // Delete a Post with id
 router.delete("/:id", postCtrl.deletePost);
 
-// Delete all Posts
-router.delete("/", postCtrl.deleteAllPosts);
 
 module.exports = router;
 

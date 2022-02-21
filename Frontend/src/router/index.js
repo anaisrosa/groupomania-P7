@@ -4,6 +4,8 @@ import SignUp from '../views/Signup.vue'
 import Feed from '../views/Feed.vue'
 import DetailsPost from '../views/DetailsPost.vue'
 import ModifyPost from '../views/ModifyPost.vue'
+import ReportPost from '../views/ReportPost.vue'
+import ReportComment from '../views/ReportComment.vue'
 
 const routes = [
   {
@@ -27,9 +29,19 @@ const routes = [
     component: DetailsPost
   },
   {
-    path: '/modify-post',
+    path: '/modify-post/:id',
     name: 'ModifyPost',
     component: ModifyPost
+  },
+  {
+    path: '/report-post/:id',
+    name: 'ReportPost',
+    component: ReportPost
+  },
+  {
+    path: '/report-comment/:id',
+    name: 'ReportComment',
+    component: ReportComment
   },
  
 ]

@@ -101,12 +101,14 @@ exports.updateComment = (req, res) => {
     });
 };
 
-// Report a Post by the id in the request
+// Report a Comment by the id in the request
 exports.reportComment = (req, res) => {
   const id = req.params.id;
+  console.log(id);
 
   Comment.update(req.body, {
     where: { id: id },
+    
   })
     .then((num) => {
       if (num == 1) {
