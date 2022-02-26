@@ -30,7 +30,6 @@ export default {
 
   methods: {
     
-
     async reportComment() {
       if (this.commentId) {
         const putData = {
@@ -69,11 +68,11 @@ export default {
 
   async mounted() {
     const response = await fetch(
-      `http://localhost:3000/api/comments/${this.$route.params.id}`
+      `http://localhost:3000/api/comments/find-one/${this.$route.params.id}`
     );
     // console.log(response.status);
     this.comment = await response.json();
-    
+  
   },
 };
 </script>

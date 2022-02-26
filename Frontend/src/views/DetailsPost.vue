@@ -206,6 +206,11 @@ input {
   margin: 2rem auto 0 auto;
  }
 
+ .actions_post{
+  display: flex;
+  justify-content: end;
+}
+
  .btn_round{
   border: solid 1px #F2F2F2;
   border-radius: 50%;
@@ -214,13 +219,7 @@ input {
   margin: 0.75rem 0.3rem 0rem 0.3rem;
   background: #F2F2F2;
   color: #2c3e50;
-  
  }
-
- .actions_post{
-  display: flex;
-  justify-content: end;
-}
 
 .comments {
   background-color: #fff;

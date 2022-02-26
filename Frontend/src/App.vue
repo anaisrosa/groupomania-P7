@@ -9,6 +9,7 @@
     <router-link to="/new-post">Mon post</router-link>
     <router-link to="/feed"> Feed </router-link> 
     <router-link to="/">Connexion</router-link> 
+    <router-link to="/profile">Profile</router-link> 
 
   </div>
   <router-view :key="$route.path" id="router-view"></router-view>
@@ -35,7 +36,7 @@
 }
 
 #nav {
-  padding: 30px 0;
+  padding: 1rem 0.5rem 1rem 0;
   text-align: right;
   
 }
@@ -44,7 +45,7 @@
   font-weight: bold;
   color: #2c3e50;
   text-decoration: none;
-  padding: 0 15px 0 0;
+  padding: 0 0.5rem 0 0;
   
 }
 
@@ -53,7 +54,7 @@
 }
 
 #router-view{
-  margin: 100px 0
+  margin: 6.5rem 0
 }
 
 

@@ -30,10 +30,13 @@
             <fa icon="trash-can" />
           </button>
 
-          <router-link :to="{ name: 'ReportPost', params: { id: post.id } }"
-            ><button v-if="post.userId !== visitorId">
+          <router-link :to="{ name: 'ReportPost', params: { id: post.id } }" v-if="post.userId !== visitorId && !post.reported" 
+            ><button >
               <fa icon="circle-exclamation" /></button
           ></router-link>
+          <button v-else>
+              <fa icon="circle-exclamation" /></button
+          >
         </div>
       </article>
     </div>

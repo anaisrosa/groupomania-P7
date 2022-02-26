@@ -6,6 +6,7 @@ import DetailsPost from '../views/DetailsPost.vue'
 import ModifyPost from '../views/ModifyPost.vue'
 import ReportPost from '../views/ReportPost.vue'
 import ReportComment from '../views/ReportComment.vue'
+import Profile from '../views/Profile.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/report-comment/:id',
     name: 'ReportComment',
     component: ReportComment
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
   },
  
 ]

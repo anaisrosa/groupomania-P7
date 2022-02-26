@@ -62,6 +62,7 @@ exports.findOneComment = (req, res) => {
   Comment.findByPk(id)
     .then((data) => {
       if (data) {
+        // console.log("########", data)
         res.send(data);
       } else {
         res.status(404).send({

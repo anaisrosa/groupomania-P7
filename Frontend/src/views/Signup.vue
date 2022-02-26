@@ -115,7 +115,7 @@ export default {
       // Converting to JSON
       const dataResult = await res.json();
       console.log(dataResult);
-      this.$router.push({ name: "Feed"})
+      // this.$router.push({ name: "Feed"})
     },
 
     async login() {
@@ -136,7 +136,7 @@ export default {
       const dataResult = await res.json();
       console.log(dataResult);
       Storage.set(dataResult);
-      this.$router.push({ name: "Feed"})
+       // this.$router.push({ name: "Feed"})
     },
   },
 };

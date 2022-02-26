@@ -9,13 +9,13 @@ router.post("/", commentCtrl.createComment);
 router.get("/:postId", commentCtrl.findAllComments);
 
 // Retrieve a single Comment with id
-router.get("/:id", commentCtrl.findOneComment);
+router.get("/find-one/:id", commentCtrl.findOneComment);
 
 // Update a Comment with id
 router.put("/:id", commentCtrl.updateComment);
 
 // Report a Comment with id
-router.put("report-comment/:id", commentCtrl.reportComment);
+router.put("/report-comment/:id", commentCtrl.reportComment);
 
 // Delete a Comment with id
 router.delete("/:id", commentCtrl.deleteComment);
