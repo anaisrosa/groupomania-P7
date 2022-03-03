@@ -30,8 +30,10 @@
     </form>
     <!-- AFFICHAGE DES COMMENTAIRES -->
     <div v-for="comment in comments" v-bind:key="comment.id" class="comments">
+      <div class="comment_content">
       <p>"{{ comment.content }}</p>
       <p>Posté par : {{ comment.user.pseudo }}"</p>
+      </div>
       <div class="actions_post">
       <button
         v-if="comment.userId === visitorId"
@@ -241,5 +243,10 @@ export default {
   border-radius: 0.5rem;
   padding: 1rem;
   margin: 1rem auto;
+}
+
+.comment_content{
+  border-bottom: solid  1px #f2f2f2;
+  box-shadow: -0.3rem 0.3rem 0.6rem #c2c2c2;
 }
 </style>

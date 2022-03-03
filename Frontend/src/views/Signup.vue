@@ -201,11 +201,15 @@ h1 {
   font-weight: bold;
   background-color: #f7e3e3;
   box-shadow: -0.3rem 0.3rem 0.6rem #f2f2f2;
+  transition: transform .1s;
+  
 }
 
 .btn_orange:hover{
 background-color: #f26549;
 color: #f7e3e3;
+transform: scale(1.05);
+
 } 
 
 /* RESPONSIVE LARGE > LAPTOP */

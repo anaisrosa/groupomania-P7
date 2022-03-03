@@ -18,6 +18,9 @@ router.put("/:id", postCtrl.updatePost);
 // Report a Post with id
 router.put("/report-post/:id", postCtrl.reportPost);
 
+// Retieve all Reported posts
+router.get("/read/reported/list", postCtrl.findAllReportedPosts);
+
 // Delete a Post with id
 router.delete("/:id", postCtrl.deletePost);
 

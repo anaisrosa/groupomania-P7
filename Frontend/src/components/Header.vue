@@ -90,4 +90,8 @@ export default {
 #nav a.router-link-exact-active {
   color: #fd2d01;
 }
+
+#nav a:hover{
+color: #fd2d01;
+}
 </style>

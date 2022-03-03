@@ -134,6 +134,27 @@ exports.reportPost = (req, res) => {
     });
 };
 
+// Retrieve all Reported Posts
+exports.findAllReportedPosts = (req, res) => {
+  Post.findAll({
+    where : { reported : true }, 
+    include: {
+      model: User,
+      attributes: ["pseudo"]
+      
+    }
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving reported posts.",
+      });
+    });
+};
+
 // Delete a Post with the specified id in the request
 exports.deletePost = (req, res) => {
   const id = req.params.id;

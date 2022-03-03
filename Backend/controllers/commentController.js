@@ -129,6 +129,27 @@ exports.reportComment = (req, res) => {
     });
 };
 
+// Retrieve all Reported Comments
+exports.findAllReportedComments = (req, res) => {
+  Comment.findAll({
+    where : { reported : true }, 
+    include: {
+      model: User,
+      attributes: ["pseudo"]
+      
+    }
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving reported comments.",
+      });
+    });
+};
+
 // Delete a Comment with the specified id in the request
 exports.deleteComment = (req, res) => {
   const id = req.params.id;
