@@ -18,7 +18,7 @@
 </template>
 
 <script>
-// import Storage from "@/services/storageService.js";
+import Storage from "@/services/storageService.js";
 import Header from "@/components/Header.vue";
 
 export default {
@@ -47,11 +47,13 @@ export default {
           reported: true,
         };
         console.log(putData);
+        const token = Storage.get().token;
         try {
           const res = await fetch(`http://localhost:3000/api/posts/report-post/${this.postId}`, {
             method: "put",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Authorization": `bearer ${token}`
               
             },
             body: JSON.stringify(putData),

@@ -39,6 +39,7 @@ export default {
   methods: {
     
     async reportComment() {
+      const token = Storage.get().token;
       if (this.commentId) {
         const putData = {
           reported: true,
@@ -48,7 +49,8 @@ export default {
           const res = await fetch(`http://localhost:3000/api/comments/report-comment/${this.commentId}`, {
             method: "put",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              Authorization: `bearer ${token}`,
               
             },
             body: JSON.stringify(putData),

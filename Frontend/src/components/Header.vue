@@ -15,6 +15,7 @@
       <router-link v-if="userSession.token" to="/feed"> Feed </router-link>
       <router-link v-if="!userSession.token" to="/">Connexion</router-link>
       <router-link v-if="userSession.token" to="/profile">Profile</router-link>
+      <router-link v-if="userSession.isAdmin" to="/admin">Admin</router-link>
       <button class="round_btn" v-if="userSession.token" @click="logOut">
         <fa icon="arrow-right-from-bracket" />
       </button>

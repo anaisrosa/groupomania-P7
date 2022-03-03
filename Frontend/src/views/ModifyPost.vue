@@ -60,7 +60,7 @@ export default {
 
   methods: {
     async putData() {
-      if (this.postId) {
+       if (this.postId) {
         const putData = {
           title: this.put_title,
           content: this.put_content,

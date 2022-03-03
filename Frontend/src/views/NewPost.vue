@@ -6,7 +6,8 @@
       <form @submit.prevent="submitPost">
         <div class="form__informations">
           <label class="label_form" for="title">Titre du post: </label>
-          <input class="input_form"
+          <input
+            class="input_form"
             v-model="post.title"
             type="text"
             name="title"
@@ -17,7 +18,8 @@
         </div>
         <div class="form__informations">
           <label class="label_form" for="content"> Contenu du post: </label>
-          <input class="input_form"
+          <input
+            class="input_form"
             v-model="post.content"
             type="text"
             name="content"
@@ -53,7 +55,9 @@ export default {
     };
   },
   methods: {
+    
     async submitPost() {
+      const token = Storage.get().token;
       console.log(Storage.get());
       // const storedData = Storage.get()
       // const userId = storedData.userId
@@ -70,6 +74,7 @@ export default {
         // Adding headers to the request
         headers: {
           "Content-type": "application/json; charset=UTF-8",
+          Authorization: `bearer ${token}`,
         },
       });
       window.alert("Votre post a bien posté!");
@@ -114,7 +119,7 @@ h1 {
   font-weight: bold;
 }
 
-.btn_orange{
+.btn_orange {
   border: none;
   border-radius: 0.25rem;
   padding: 0.4rem;

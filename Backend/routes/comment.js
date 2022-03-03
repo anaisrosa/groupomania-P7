@@ -1,28 +1,28 @@
 const express = require("express");
+const auth = require("../middleware/auth");
 const router = express.Router();
 
-// const auth = require("../middleware/auth");
 const commentCtrl = require("../controllers/commentController");
 
 // Create a new Comment
-router.post("/", commentCtrl.createComment);
+router.post("/", auth.userCheck, commentCtrl.createComment);
 
 // Retrieve all Comments
-router.get("/:postId", commentCtrl.findAllComments);
+router.get("/:postId", auth.userCheck, commentCtrl.findAllComments);
 
 // Retrieve a single Comment with id
 router.get("/find-one/:id", commentCtrl.findOneComment);
 
 // Update a Comment with id
-router.put("/:id", commentCtrl.updateComment);
+// router.put("/:id", commentCtrl.updateComment);
 
 // Report a Comment with id
-router.put("/report-comment/:id", commentCtrl.reportComment);
+router.put("/report-comment/:id", auth.userCheck, commentCtrl.reportComment);
 
 // Retieve all Reported comments
-router.get("/read/reported/list", commentCtrl.findAllReportedComments);
+router.get("/read/reported/list", auth.adminCheck, commentCtrl.findAllReportedComments);
 
 // Delete a Comment with id
-router.delete("/:id", commentCtrl.deleteComment);
+router.delete("/:id", auth.userCheck, commentCtrl.deleteComment);
 
 module.exports = router;

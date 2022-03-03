@@ -73,8 +73,14 @@ export default {
   },
   methods: {
     async getPostsData() {
+      const token = Storage.get().token;
       try {
-        let response = await fetch("http://localhost:3000/api/posts");
+        let response = await fetch("http://localhost:3000/api/posts",{
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `bearer ${token}`,
+          },
+        });
         this.posts = await response.json();
         console.log(this.posts);
       } catch (error) {
@@ -87,9 +93,15 @@ export default {
     },
 
     async deletePostById(id, index) {
+      const token = Storage.get().token;
       try {
         await fetch(`http://localhost:3000/api/posts/${id}`, {
           method: "delete",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `bearer ${token}`,
+          },
+          
         });
         this.posts.splice(index, 1);
       } catch (err) {

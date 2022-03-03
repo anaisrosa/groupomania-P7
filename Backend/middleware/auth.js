@@ -1,20 +1,42 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => {
+exports.userCheck = (req, res, next) => {
+
     try {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
-        const userId = decodedToken.userId;
-        req.auth = { userId };  
-        if (req.body.userId && req.body.userId !== userId) {
-            throw 'Invalid user ID';
+        if (!decodedToken)  {
+            throw 'Invalid token';
         } else {
             next();
         }
-    } catch {
+    } catch (err) {
+        
         res.status(401).json({
             error: new Error('Invalid request!')
         });
     }
 };
+
+
+exports.adminCheck = (req, res, next) => {
+
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
+        const isAdmin = decodedToken.userIsAdmin;  
+        if (!isAdmin) {
+            throw 'User is not Admin';
+        } else {
+            next();
+        }
+    } catch (err) {
+        res.status(401).json({
+            error: new Error('Invalid request!'),
+            message: err,
+        });
+    }
+};
+
+
 

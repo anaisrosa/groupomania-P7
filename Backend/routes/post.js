@@ -1,27 +1,27 @@
 const express = require("express");
 const router = express.Router();
-// const auth = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const postCtrl = require("../controllers/postController");
 
 // Create a new Post
-router.post("/", postCtrl.createPost);
+router.post("/", auth.userCheck, postCtrl.createPost);
 
 // Retrieve all Posts
-router.get("/", postCtrl.findAllPosts);
+router.get("/", auth.userCheck, postCtrl.findAllPosts);
 
 // Retrieve a single Post with id
-router.get("/:id", postCtrl.findOnePost);
+router.get("/:id", auth.userCheck, postCtrl.findOnePost);
 
 // Update a Post with id
 router.put("/:id", postCtrl.updatePost);
 
 // Report a Post with id
-router.put("/report-post/:id", postCtrl.reportPost);
+router.put("/report-post/:id", auth.userCheck, postCtrl.reportPost);
 
 // Retieve all Reported posts
-router.get("/read/reported/list", postCtrl.findAllReportedPosts);
+router.get("/read/reported/list", auth.adminCheck, postCtrl.findAllReportedPosts);
 
 // Delete a Post with id
-router.delete("/:id", postCtrl.deletePost);
+router.delete("/:id", auth.userCheck, postCtrl.deletePost);
 
 module.exports = router;
