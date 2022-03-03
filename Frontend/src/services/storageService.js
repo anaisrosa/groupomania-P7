@@ -11,4 +11,8 @@ export default {
   set(data) {
     window.localStorage.setItem(this.name, JSON.stringify(data));
   },
+  clear(){
+    window.localStorage.removeItem(this.name)
+  }
+
 };

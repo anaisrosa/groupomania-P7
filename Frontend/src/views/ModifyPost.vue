@@ -1,4 +1,6 @@
 <template>
+<div class="Main_edit_post">
+  <Header/>
   <div class="edit_post">
     <h1>Modifiez votre post :</h1>
     <div class="post_to_edit">
@@ -31,12 +33,18 @@
       </div>
     </form>
   </div>
+</div>
 </template>
 
 <script>
 // import Storage from "@/services/storageService.js";
+import Header from "@/components/Header.vue";
 
 export default {
+    components : {
+    Header
+  },
+
   data() {
     return {
       post: {

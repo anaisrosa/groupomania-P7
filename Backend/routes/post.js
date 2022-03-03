@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+// const auth = require("../middleware/auth");
 const postCtrl = require("../controllers/postController");
 
-// Create a new Post    
+// Create a new Post
 router.post("/", postCtrl.createPost);
-  
+
 // Retrieve all Posts
 router.get("/", postCtrl.findAllPosts);
 
@@ -20,6 +21,4 @@ router.put("/report-post/:id", postCtrl.reportPost);
 // Delete a Post with id
 router.delete("/:id", postCtrl.deletePost);
 
-
 module.exports = router;
-

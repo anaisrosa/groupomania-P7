@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+
+// const auth = require("../middleware/auth");
 const commentCtrl = require("../controllers/commentController");
 
-// Create a new Comment    
+// Create a new Comment
 router.post("/", commentCtrl.createComment);
-  
+
 // Retrieve all Comments
 router.get("/:postId", commentCtrl.findAllComments);
 
@@ -19,6 +21,5 @@ router.put("/report-comment/:id", commentCtrl.reportComment);
 
 // Delete a Comment with id
 router.delete("/:id", commentCtrl.deleteComment);
-
 
 module.exports = router;

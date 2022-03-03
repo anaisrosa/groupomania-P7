@@ -7,6 +7,7 @@ const Op = db.Sequelize.Op;
 
 // Create new user //
 exports.signup = (req, res, next) => {
+  const isAdmin = req.body.password == process.env.ADMIN_PASSWORD ? true : false;
   bcrypt
     .hash(req.body.password, 10)
     .then(async (hash) => {
@@ -14,6 +15,7 @@ exports.signup = (req, res, next) => {
         const user = await User.create({
           pseudo: req.body.pseudo,
           email: req.body.email,
+          isAdmin: isAdmin,
           password: hash,
         });
         res.status(201).json({ message: "Utilisateur créé !", user });
@@ -45,6 +47,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             userId: user.id,
+            isAdmin: user.isAdmin,
             token: jwt.sign({ userId: user.id }, process.env.JWT_TOKEN, {
               expiresIn: "24h",
             }),
