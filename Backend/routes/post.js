@@ -15,6 +15,9 @@ router.get("/:id", auth.userCheck, postCtrl.findOnePost);
 // Update a Post with id
 router.put("/:id", postCtrl.updatePost);
 
+// Athorize a Post with id
+router.put("/authorize-post/:id",auth.adminCheck, postCtrl.AuthorizePost);
+
 // Report a Post with id
 router.put("/report-post/:id", auth.userCheck, postCtrl.reportPost);
 

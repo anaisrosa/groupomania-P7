@@ -13,11 +13,11 @@ router.get("/:postId", auth.userCheck, commentCtrl.findAllComments);
 // Retrieve a single Comment with id
 router.get("/find-one/:id", commentCtrl.findOneComment);
 
-// Update a Comment with id
-// router.put("/:id", commentCtrl.updateComment);
-
 // Report a Comment with id
 router.put("/report-comment/:id", auth.userCheck, commentCtrl.reportComment);
+
+// Athorize a Post with id
+router.put("/authorize-comment/:id", auth.adminCheck, commentCtrl.AuthorizeComment);
 
 // Retieve all Reported comments
 router.get("/read/reported/list", auth.adminCheck, commentCtrl.findAllReportedComments);

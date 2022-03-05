@@ -3,14 +3,19 @@
     <Header />
     <div class="admin">
       <div>
-        <h1>Vous êtes le modérateur, à vous de jouer...</h1>
+        <h1>C'est à vous...</h1>
+        <p>
+          En tant que modérateur, votre rôle est important !<br />
+          Si vous éstimez que ces posts / commentaires ne sont pas appropriés,
+          ou qu'ils peuvent heurter la senibilité de certains, vous pouvez les
+          effacer de la plateforme.<br />Le cas échéant, vous pouvez les
+          remettre dans le feed d'actualité.
+        </p>
+
         <div class="admin_posts">
-          <article
-            v-for="(post, i) in posts"
-            v-bind:key="post.id"
-            class="postCard"
-          >
-            <div class="info_post">
+          <h2>Liste des posts à modérer</h2>
+          <article v-for="(post, i) in posts" v-bind:key="post.id" class="card">
+            <div class="info_author">
               <p>
                 Posté par : {{ post.user.pseudo }}, le :
                 {{ dateParser(post.createdAt) }}
@@ -21,15 +26,41 @@
               <p>{{ post.content }}</p>
             </div>
 
-            <div class="actions_post">
-              <button @click="cancelReport(post, i)" class="round_btn">
-                <fa icon="pen-to-square" />
+            <div class="action_btn">
+              <button @click="authorizePost(psot, i)" class="round_btn">
+                <fa class="green_icon" icon="flag" />
               </button>
 
-              <button @click="deleteReportedPost(post, i)"
-                class="round_btn"
-              >
-                <fa icon="trash-can" />
+              <button @click="deleteReportedPost(post, i)" class="round_btn">
+                <fa class="orange_icon" icon="trash-can" />
+              </button>
+            </div>
+          </article>
+        </div>
+        <div class="admin_comments">
+          <h2>Liste des commentaires à modérer</h2>
+          <article
+            v-for="(comment, i) in comments"
+            v-bind:key="comment.id"
+            class="card"
+          >
+            <div class="info_author">
+              <p>
+                Posté par : {{ comment.user.pseudo }}, le :
+                {{ dateParser(comment.createdAt) }}
+              </p>
+            </div>
+            <div class="comment">
+              <p>{{ comment.content }}</p>
+            </div>
+
+            <div class="action_btn">
+              <button @click="cancelReportedComment(post, i)" class="round_btn">
+                <fa class="green_icon" icon="flag" />
+              </button>
+
+              <button @click="deleteReportedComment(post, i)" class="round_btn">
+                <fa class="orange_icon" icon="trash-can" />
               </button>
             </div>
           </article>
@@ -51,7 +82,7 @@ export default {
 
   data() {
     let posts = [];
-    let comments =[];
+    let comments = [];
 
     return {
       posts,
@@ -65,14 +96,38 @@ export default {
         const token = Storage.get().token;
         const reqInit = {
           headers: {
-              "Authorization": `bearer ${token}`
-            },
-        }
-        let response = await fetch("http://localhost:3000/api/posts/read/reported/list", reqInit);
-       
+            Authorization: `bearer ${token}`,
+          },
+        };
+        let response = await fetch(
+          "http://localhost:3000/api/posts/read/reported/list",
+          reqInit
+        );
+
         const posts = await response.json();
         console.log(posts);
-        this.posts = posts
+        this.posts = posts;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getReportedCommensData() {
+      try {
+        const token = Storage.get().token;
+        const reqInit = {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        };
+        let response = await fetch(
+          "http://localhost:3000/api/comments/read/reported/list",
+          reqInit
+        );
+
+        const comments = await response.json();
+        console.log(comments);
+        this.comments = comments;
       } catch (error) {
         console.log(error);
       }
@@ -82,16 +137,6 @@ export default {
       return JSON.stringify(dataResult, null);
     },
 
-    // async deletePostById(id, index) {
-    //   try {
-    //     await fetch(`http://localhost:3000/api/posts/${id}`, {
-    //       method: "delete",
-    //     });
-    //     this.posts.splice(index, 1);
-    //   } catch (err) {
-    //     this.deleteResult = err.message;
-    //   }
-    // },
     dateParser(date) {
       let newDate = new Date(date).toLocaleString("fr-FR", {
         year: "numeric",
@@ -102,26 +147,141 @@ export default {
     },
   },
 
-  deleteReportedPost(post, i) {
-    console.log(post,i)
+  async authorizePost(post, i) {
+    console.log("je rentre dans la fonction authorize post")
+    if (this.postId) {
+      const putData = {
+        reported: false,
+      };
+      console.log(putData);
+      // const token = Storage.get().token;
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/posts/authorize-post/${this.postId}`,
+          {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              // Authorization: `bearer ${token}`,
+            },
+            body: JSON.stringify(putData),
+          }
+        );
+        window.alert(
+          "Ce post a bien été signalé. Notre équipe de modérateurs examinera votre demande dans les plus brefs délais!"
+        );
+        this.$router.push({ name: "Admin" });
 
+        if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          throw new Error(message);
+        }
+      } catch (err) {
+        this.putResult = err.message;
+      }
+    }
+  },
+
+  deleteReportedPost(post, i) {
+    console.log(post, i);
   },
 
   deleteReportedComment(comment, i) {
-console.log(comment,i)
+    console.log(comment, i);
   },
 
-  cancelReportedPost(post, i) {
-console.log(post,i)
+  cancelReportedComment(comment, i) {
+    console.log(comment, i);
   },
-
-   cancelReportedComment(comment, i){
-console.log(comment,i)
-  },
-
 
   created() {
     this.getReportedPostsData();
+    this.getReportedCommensData();
   },
 };
 </script>
+
+<style scoped>
+.feed {
+  max-width: 80%;
+  margin: 2rem 0;
+  padding: 50px;
+  border: solid 3px #fd2d01;
+  border-radius: 1rem;
+  box-shadow: -0.3rem 0.3rem 0.6rem #c2c2c2;
+}
+
+h1 {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  text-align: right;
+  margin: 2.5rem 0 1rem 0;
+}
+
+a {
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+.card {
+  background-color: #f7e3e3;
+  border-radius: 1rem;
+  padding: 1rem 0.5rem;
+  margin: 1rem 0;
+  text-align: left;
+  box-shadow: -0.3rem 0.3rem 0.6rem #c2c2c2;
+}
+
+.info_author {
+  font-style: italic;
+  font-size: 0.85rem;
+  text-align: right;
+  margin-block-start: 0;
+  margin-block-end: 0.2rem;
+  padding-right: 0.3rem;
+}
+
+.post {
+  font-size: 0.85rem;
+  text-align: left;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: -0.1rem 0.1rem 0.2 #c2c2c2;
+}
+
+.comment {
+  font-size: 0.85rem;
+  text-align: left;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: -0.1rem 0.1rem 0.2 #c2c2c2;
+}
+
+.action_btn {
+  display: flex;
+  justify-content: end;
+}
+
+.round_btn {
+  border: solid 1px #f2f2f2;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  margin: 0.75rem 0.3rem 0rem 0.3rem;
+  background: #f2f2f2;
+  color: #2c3e50;
+  box-shadow: -0.1rem 0.1rem 0.2 #c2c2c2;
+}
+
+.orange_icon:hover {
+  color: #fd2d01;
+}
+
+.green_icon:hover {
+  color: green;
+}
+</style>

@@ -134,6 +134,35 @@ exports.reportPost = (req, res) => {
     });
 };
 
+
+
+// Authorize a Post by the id in the request
+exports.AuthorizePost = (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+  
+    Post.update(req.body, {
+      where: { id: id },
+      
+    })
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "Post was authorized successfully.",
+          });
+        } else {
+          res.send({
+            message: `Cannot authorize Post with id=${id}. Maybe Post was not found or req.body is empty!`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "Error authorizing Post with id=" + id,
+        });
+      });
+  };
+
 // Retrieve all Reported Posts
 exports.findAllReportedPosts = (req, res) => {
   Post.findAll({
@@ -180,22 +209,6 @@ exports.deletePost = (req, res) => {
     });
 };
 
-// Delete all Posts from the database.
-exports.deleteAllPosts = (req, res) => {
-  Post.destroy({
-    where: {},
-    truncate: false,
-  })
-    .then((nums) => {
-      res.send({ message: `${nums} Posts were deleted successfully!` });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all Posts.",
-      });
-    });
-};
 
 
 

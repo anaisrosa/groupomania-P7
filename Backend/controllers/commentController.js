@@ -129,6 +129,33 @@ exports.reportComment = (req, res) => {
     });
 };
 
+// Authorize a Comment by the id in the request
+exports.AuthorizeComment = (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  Comment.update(req.body, {
+    where: { id: id },
+    
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Comment was authorized successfully.",
+        });
+      } else {
+        res.send({
+          message: `Cannot authorize Comment with id=${id}. Maybe Post was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error authorizing Comment with id=" + id,
+      });
+    });
+};
+
 // Retrieve all Reported Comments
 exports.findAllReportedComments = (req, res) => {
   Comment.findAll({
@@ -175,19 +202,3 @@ exports.deleteComment = (req, res) => {
     });
 };
 
-// Delete all Comments from the database.
-exports.deleteAllComments = (req, res) => {
-  Comment.destroy({
-    where: {},
-    truncate: false,
-  })
-    .then((nums) => {
-      res.send({ message: `${nums} Comments were deleted successfully!` });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all Comments.",
-      });
-    });
-};
