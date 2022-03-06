@@ -11,10 +11,13 @@ router.post("/", auth.userCheck, commentCtrl.createComment);
 router.get("/:postId", auth.userCheck, commentCtrl.findAllComments);
 
 // Retrieve a single Comment with id
-router.get("/find-one/:id", commentCtrl.findOneComment);
+router.get("/find-one/:id", auth.userCheck, commentCtrl.findOneComment);
 
 // Report a Comment with id
 router.put("/report-comment/:id", auth.userCheck, commentCtrl.reportComment);
+
+// Delete a Comment with id
+router.delete("/:id", auth.userCheck, commentCtrl.deleteComment);
 
 // Athorize a Post with id
 router.put("/authorize-comment/:id", auth.adminCheck, commentCtrl.AuthorizeComment);
@@ -22,7 +25,8 @@ router.put("/authorize-comment/:id", auth.adminCheck, commentCtrl.AuthorizeComme
 // Retieve all Reported comments
 router.get("/read/reported/list", auth.adminCheck, commentCtrl.findAllReportedComments);
 
-// Delete a Comment with id
-router.delete("/:id", auth.userCheck, commentCtrl.deleteComment);
+// Delete a Reported Comment with id
+router.delete("/delete/reported-comment/:id", commentCtrl.deleteReportedComment);
+
 
 module.exports = router;

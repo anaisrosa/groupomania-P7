@@ -34,13 +34,12 @@ export default {
         reported:"",
       },
 
-      // visitorId: Storage.get().userId
+      visitorId: Storage.get().userId
     };
   },
 
   methods: {
     
-
     async reportPutData() {
       if (this.postId) {
         const putData = {
@@ -80,9 +79,13 @@ export default {
   },
 
   async mounted() {
+    const token = Storage.get().token;
     const response = await fetch(
-      `http://localhost:3000/api/posts/${this.$route.params.id}`
-    );
+      `http://localhost:3000/api/posts/${this.$route.params.id}`,{ 
+            headers: {
+              Authorization: `bearer ${token}`,
+            },
+          });
     // console.log(response.status);
     this.post = await response.json();
     

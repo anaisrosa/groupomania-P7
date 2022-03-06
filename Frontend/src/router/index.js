@@ -9,6 +9,7 @@ import ReportComment from '../views/ReportComment.vue'
 import Profile from '../views/Profile.vue'
 import Admin from '../views/Admin.vue'
 
+
 const routes = [
   {
     path: '/new-post',

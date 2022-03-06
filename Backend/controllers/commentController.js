@@ -202,3 +202,28 @@ exports.deleteComment = (req, res) => {
     });
 };
 
+// Delete a Comment with the specified id in the request
+exports.deleteReportedComment = (req, res) => {
+  const id = req.params.id;
+
+  Comment.destroy({
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Comment was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete comment with id=${id}. Maybe Post was not found!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Comment with id=" + id,
+      });
+    });
+};
+

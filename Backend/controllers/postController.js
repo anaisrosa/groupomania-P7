@@ -163,6 +163,32 @@ exports.AuthorizePost = (req, res) => {
       });
   };
 
+  // Delete a Reported Post by the id in the request
+  exports.deleteReportedPost = (req, res) => {
+    const id = req.params.id;
+  
+    Post.destroy({
+      where: { id: id },
+    })
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "Post was deleted successfully!",
+          });
+        } else {
+          res.send({
+            message: `Cannot delete Post with id=${id}. Maybe Post was not found!`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "Could not delete Post with id=" + id,
+        });
+      });
+  };
+  
+
 // Retrieve all Reported Posts
 exports.findAllReportedPosts = (req, res) => {
   Post.findAll({

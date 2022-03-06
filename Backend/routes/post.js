@@ -15,6 +15,9 @@ router.get("/:id", auth.userCheck, postCtrl.findOnePost);
 // Update a Post with id
 router.put("/:id", postCtrl.updatePost);
 
+// Delete a Post with id
+router.delete("/:id", auth.userCheck, postCtrl.deletePost);
+
 // Athorize a Post with id
 router.put("/authorize-post/:id",auth.adminCheck, postCtrl.AuthorizePost);
 
@@ -24,7 +27,8 @@ router.put("/report-post/:id", auth.userCheck, postCtrl.reportPost);
 // Retieve all Reported posts
 router.get("/read/reported/list", auth.adminCheck, postCtrl.findAllReportedPosts);
 
-// Delete a Post with id
-router.delete("/:id", auth.userCheck, postCtrl.deletePost);
+// Delete a Reported Post with id
+router.delete("/delete/reported-post/:id", postCtrl.deleteReportedPost);
+
 
 module.exports = router;

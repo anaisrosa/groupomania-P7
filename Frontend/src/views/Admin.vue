@@ -27,7 +27,7 @@
             </div>
 
             <div class="action_btn">
-              <button @click="authorizePost(psot, i)" class="round_btn">
+              <button @click="authorizePost(post, i)" class="round_btn">
                 <fa class="green_icon" icon="flag" />
               </button>
 
@@ -145,53 +145,42 @@ export default {
       });
       return newDate;
     },
-  },
 
-  async authorizePost(post, i) {
-    console.log("je rentre dans la fonction authorize post")
-    if (this.postId) {
-      const putData = {
-        reported: false,
-      };
-      console.log(putData);
-      // const token = Storage.get().token;
-      try {
-        const res = await fetch(
-          `http://localhost:3000/api/posts/authorize-post/${this.postId}`,
-          {
-            method: "put",
-            headers: {
-              "Content-Type": "application/json",
-              // Authorization: `bearer ${token}`,
-            },
-            body: JSON.stringify(putData),
+    async authorizePost() {
+      console.log("je rentre dans la fonction authorize post");
+      console.log();
+      if (this.postId) {
+        const putData = {
+          reported: false,
+        };
+        console.log(putData);
+        // const token = Storage.get().token;
+        try {
+          const res = await fetch(
+            `http://localhost:3000/api/posts/authorize-post/${this.postId}`,
+            {
+              method: "put",
+              headers: {
+                "Content-Type": "application/json",
+                // Authorization: `bearer ${token}`,
+              },
+              body: JSON.stringify(putData),
+            }
+          );
+          window.alert(
+            "Ce post a bien été autorisé. Il est désormais visible sur le le feed des publications!"
+          );
+          this.$router.push({ name: "Feed" });
+
+          if (!res.ok) {
+            const message = `An error has occured: ${res.status} - ${res.statusText}`;
+            throw new Error(message);
           }
-        );
-        window.alert(
-          "Ce post a bien été signalé. Notre équipe de modérateurs examinera votre demande dans les plus brefs délais!"
-        );
-        this.$router.push({ name: "Admin" });
-
-        if (!res.ok) {
-          const message = `An error has occured: ${res.status} - ${res.statusText}`;
-          throw new Error(message);
+        } catch (err) {
+          this.putResult = err.message;
         }
-      } catch (err) {
-        this.putResult = err.message;
       }
-    }
-  },
-
-  deleteReportedPost(post, i) {
-    console.log(post, i);
-  },
-
-  deleteReportedComment(comment, i) {
-    console.log(comment, i);
-  },
-
-  cancelReportedComment(comment, i) {
-    console.log(comment, i);
+    },
   },
 
   created() {

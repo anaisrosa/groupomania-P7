@@ -77,9 +77,13 @@ export default {
   },
 
   async mounted() {
+    const token = Storage.get().token;
     const response = await fetch(
-      `http://localhost:3000/api/comments/find-one/${this.$route.params.id}`
-    );
+      `http://localhost:3000/api/comments/find-one/${this.$route.params.id}`,{
+            headers: {
+              Authorization: `bearer ${token}`,
+            },
+          });
     // console.log(response.status);
     this.comment = await response.json();
   
