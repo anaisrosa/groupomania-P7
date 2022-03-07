@@ -50,10 +50,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 #nav{
   display: flex;
-  justify-content: end;
-  width: 95%;
+  justify-content: center;
 }
 .round_btn {
   border: solid 1px #f2f2f2;
@@ -68,11 +74,10 @@ export default {
 }
 
 #logo_groupomania {
-  width: 20%;
-  position: absolute;
-  top: -4rem;
-  left: 27%;
-  z-index: -100;
+  width: 200px;
+  height: 50px;
+  object-fit: cover;
+  
 }
 
 #nav {

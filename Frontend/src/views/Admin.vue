@@ -11,7 +11,7 @@
           effacer de la plateforme.<br />Le cas échéant, vous pouvez les
           remettre dans le feed d'actualité.
         </p>
-
+        <!-- DISPLAY REPORTED POSTS-->
         <div class="admin_posts">
           <h2>Liste des posts à modérer</h2>
           <article v-for="(post, i) in posts" v-bind:key="post.id" class="card">
@@ -27,16 +27,17 @@
             </div>
 
             <div class="action_btn">
-              <button @click="authorizePost(post, i)" class="round_btn">
+              <button @click="authorizeReportedPost(post.id, i)" class="round_btn">
                 <fa class="green_icon" icon="flag" />
               </button>
 
-              <button @click="deleteReportedPost(post, i)" class="round_btn">
+              <button @click="deleteReportedPost(post.id, i)" class="round_btn">
                 <fa class="orange_icon" icon="trash-can" />
               </button>
             </div>
           </article>
         </div>
+        <!-- DISPLAY REPORTED COMMENTS-->
         <div class="admin_comments">
           <h2>Liste des commentaires à modérer</h2>
           <article
@@ -55,11 +56,11 @@
             </div>
 
             <div class="action_btn">
-              <button @click="cancelReportedComment(post, i)" class="round_btn">
+              <button @click="authorizeReportedComment(comment.id, i)" class="round_btn">
                 <fa class="green_icon" icon="flag" />
               </button>
 
-              <button @click="deleteReportedComment(post, i)" class="round_btn">
+              <button @click="deleteReportedComment(comment.id, i)" class="round_btn">
                 <fa class="orange_icon" icon="trash-can" />
               </button>
             </div>
@@ -146,39 +147,109 @@ export default {
       return newDate;
     },
 
-    async authorizePost() {
-      console.log("je rentre dans la fonction authorize post");
-      console.log();
-      if (this.postId) {
+    async authorizeReportedPost(id, index) {
+      
         const putData = {
           reported: false,
         };
         console.log(putData);
-        // const token = Storage.get().token;
+        const token = Storage.get().token;
         try {
           const res = await fetch(
-            `http://localhost:3000/api/posts/authorize-post/${this.postId}`,
+            `http://localhost:3000/api/posts/authorize-post/${id}`,
             {
               method: "put",
               headers: {
-                "Content-Type": "application/json",
-                // Authorization: `bearer ${token}`,
+                Authorization: `bearer ${token}`,
               },
-              body: JSON.stringify(putData),
+              
             }
           );
-          window.alert(
-            "Ce post a bien été autorisé. Il est désormais visible sur le le feed des publications!"
-          );
-          this.$router.push({ name: "Feed" });
+          
+          // this.$router.push({ name: "Feed" });
 
           if (!res.ok) {
             const message = `An error has occured: ${res.status} - ${res.statusText}`;
             throw new Error(message);
+          } else {
+            window.alert(
+            "Ce post a bien été autorisé. Il est désormais visible sur le le feed des publications!"
+          );
+          this.posts.splice(index, 1);
+
           }
         } catch (err) {
           this.putResult = err.message;
         }
+      
+    },
+
+        async authorizeReportedComment(id, index) {
+      
+        const putData = {
+          reported: false,
+        };
+        console.log(putData);
+        const token = Storage.get().token;
+        try {
+          const res = await fetch(
+            `http://localhost:3000/api/comments/authorize-comment/${id}`,
+            {
+              method: "put",
+              headers: {
+                Authorization: `bearer ${token}`,
+              },
+              
+            }
+          );
+          
+          // this.$router.push({ name: "Feed" });
+
+          if (!res.ok) {
+            const message = `An error has occured: ${res.status} - ${res.statusText}`;
+            throw new Error(message);
+          } else {
+            window.alert(
+            "Ce commentaire a bien été autorisé. Il est désormais visible sur le le feed des publications!"
+          );
+          this.posts.splice(index, 1);
+
+          }
+        } catch (err) {
+          this.putResult = err.message;
+        }
+      
+    },
+
+    async deleteReportedPost(id, index) {
+      console.log("je rentre dans la fonction deleteReportedPost");
+      const token = Storage.get().token;
+      try {
+        await fetch(`http://localhost:3000/api/posts/delete/reported-post/${id}`, {
+          method: "delete",
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        });
+        this.posts.splice(index, 1);
+      } catch (err) {
+        this.deleteResult = err.message;
+      }
+    },
+
+    async deleteReportedComment(id, index) {
+      console.log("je rentre dans la fonction deleteReportedComment");
+      const token = Storage.get().token;
+      try {
+        await fetch(`http://localhost:3000/api/comments/delete/reported-comment/${id}`, {
+          method: "delete",
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        });
+        this.comments.splice(index, 1);
+      } catch (err) {
+        this.deleteResult = err.message;
       }
     },
   },

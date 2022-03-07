@@ -7,9 +7,11 @@
     <h2>"{{ post.title }}"</h2>
     <p>{{ post.content }}</p>
     </div>
+    
     <p>Si vous pensez qu’une publication ou un commentaire d’un autre membre du groupe ne respecte pas les règles de ce dernier, vous pouvez signaler le contenu aux admins de Groupomania.</p>
     <p>Le ou les admins du groupe recevront ensuite une notification les informant qu’ils ont une publication à examiner. Les personnes occupant le rôle d’admin ou de modérateur du groupe ne peuvent pas signaler un commentaire ou une publication aux admins du groupe.</p>
     <p>Etes vous sur de vouloir signaler ce post?</p>
+
     <button class="btn_orange" @click="reportPutData">Confirmer</button>
     <router-link :to="{ name: 'Feed' }">
     <button class="btn_orange">Annuler</button></router-link>

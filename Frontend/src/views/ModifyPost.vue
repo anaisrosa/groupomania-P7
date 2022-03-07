@@ -7,6 +7,8 @@
         <h2>"{{ post.title }}"</h2>
         <p>{{ post.content }}</p>
       </div>
+
+      <!-- UPDATE POST FORM -->
       <form @submit.prevent="putData" class="edit_post_form">
         <div class="edit__informations">
           <label for="title">Modifiez le titre du post:</label>
@@ -37,7 +39,7 @@
 </template>
 
 <script>
-// import Storage from "@/services/storageService.js";
+import Storage from "@/services/storageService.js";
 import Header from "@/components/Header.vue";
 
 export default {
@@ -66,12 +68,14 @@ export default {
           content: this.put_content,
         };
         try {
+          const token = Storage.get().token;
           const res = await fetch(
             `http://localhost:3000/api/posts/${this.postId}`,
             {
               method: "put",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `bearer ${token}`
               },
               body: JSON.stringify(putData),
             }
@@ -96,12 +100,20 @@ export default {
   },
 
   async mounted() {
+    const token = Storage.get().token;
     const response = await fetch(
-      `http://localhost:3000/api/posts/${this.$route.params.id}`
+      `http://localhost:3000/api/posts/${this.$route.params.id}`,
+      {
+            headers: {
+              Authorization: `bearer ${token}`,
+            },
+          }
     );
     console.log(response.status);
     this.post = await response.json();
   },
+
+  
 };
 </script>
 

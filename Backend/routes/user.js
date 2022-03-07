@@ -3,19 +3,19 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const userCtrl = require("../controllers/userController");
 
-// Create a new Account
+// Create a new User Account
 router.post("/signup", userCtrl.signup);
 
-// Create login whith an acount
+// Login whith a User account
 router.post("/login", userCtrl.login);
 
-// Find one account
+// Find one User account
 router.get("/account/:id", auth.userCheck, userCtrl.findOneAccount);
 
 // Compare two passwords
 router.post("/verify-password", auth.userCheck, userCtrl.comparePassword);
 
-// Modify an account
+// Modify a User account
 router.post("/modify-account/:id", auth.userCheck, userCtrl.updateAccount);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 module.exports = {
     HOST: "localhost",
-    USER: "root",
-    PASSWORD: "Restoin2020!",
+    USER: process.env.MYSQL_ID,
+    PASSWORD:  process.env.MYSQL_PWD,
     DB: "groupomania",
     dialect: "mysql",
     pool: {

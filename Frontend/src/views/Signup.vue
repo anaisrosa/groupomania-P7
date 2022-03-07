@@ -2,6 +2,7 @@
   <div class="Main_Register">
     <Header />
     <div class="login_signup_forms">
+      
       <!-- SIGNUP FORM -->
       <div v-if="!showLogin" id="signup">
         <h1>Inscrivez-vous!</h1>
@@ -47,7 +48,8 @@
       </div>
 
       <div v-else id="register">
-        <!-- LOG FORM -->
+
+        <!-- LOGIN FORM -->
         <h1>Connexion:</h1>
 
         <form @submit.prevent="login" class="registration__form">

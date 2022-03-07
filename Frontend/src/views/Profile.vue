@@ -8,6 +8,7 @@
         <p>Adresse email actuelle : {{ user.email }}</p>
       </div>
 
+      <!-- EDIT USER ACCOUNT FORM -->
       <form class="edit_profile_form" @submit.prevent="comparePassword">
         <div class="form__informations">
           <label class="instruction_label" for="password"
@@ -217,8 +218,8 @@ export default {
 
 label {
   font-weight: 500;
-  padding-bottom: 0.5rem;
-  margin: 0 0 0.5rem 0;
+  padding-top: 1rem;
+  margin: 0 0 1rem 0;
 }
 
 .instruction_label {

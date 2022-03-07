@@ -6,9 +6,11 @@
     <div id="reported_comment">
     <h2 class="comment">"{{ comment.content }}"</h2>
     </div>
+
     <p>Si vous pensez qu’une publication ou un commentaire d’un autre membre du groupe ne respecte pas les règles de ce dernier, vous pouvez signaler le contenu aux admins de Groupomania.</p>
     <p>Le ou les admins du groupe recevront ensuite une notification les informant qu’ils ont une publication à examiner. Les personnes occupant le rôle d’admin ou de modérateur du groupe ne peuvent pas signaler un commentaire ou une publication aux admins du groupe.</p>
     <p>Etes vous sur de vouloir signaler ce commentaire?</p>
+    
     <button class="btn_orange" @click="reportComment">Confirmer</button>
     <router-link :to="{ name: 'Feed' }"><button class="btn_orange">Annuler</button></router-link>
   </div>
@@ -16,7 +18,7 @@
 </template>
 
 <script>
-// import Storage from "@/services/storageService.js";
+import Storage from "@/services/storageService.js";
 import Header from "@/components/Header.vue";
 
 export default {
@@ -32,7 +34,7 @@ export default {
       },
 
 
-      // visitorId: Storage.get().userId
+      visitorId: Storage.get().userId
     };
   },
 

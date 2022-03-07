@@ -3,6 +3,8 @@
     <Header />
     <div class="new_post_form">
       <h1>Ecrire un post:</h1>
+
+      <!-- CREATE POST FORM -->
       <form @submit.prevent="submitPost">
         <div class="form__informations">
           <label class="label_form" for="title">Titre du post: </label>
@@ -28,7 +30,7 @@
           />
           <p id="contentErrorMsg"></p>
           <br />
-          <button class="btn_orange">Commenter</button>
+          <button class="btn_orange">Publier</button>
         </div>
       </form>
     </div>

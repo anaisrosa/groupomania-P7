@@ -1,6 +1,7 @@
 <template>
   <div class="detailPost">
     <Header />
+    <!-- DISPLAY ONE POST-->
     <article class="postCard">
       <div class="info_post">
         <p>
@@ -13,7 +14,7 @@
         <p>{{ post.content }}</p>
       </div>
 
-      <!-- FORMULAIRE NOUVEAU COMMENTAIRE -->
+      <!-- SUBMIT COMMENT FORM -->
       <form @submit.prevent="submitComment" id="comment_form">
         <div class="form__informations">
           <label class="label_form" for="commentContent">Commentaire: </label>
@@ -31,7 +32,7 @@
           <p id="commentContentErrorMsg"></p>
         </div>
       </form>
-      <!-- AFFICHAGE DES COMMENTAIRES -->
+      <!-- DISPLAY COMMENTS-->
       <div v-for="comment in comments" v-bind:key="comment.id" class="comments">
         <div class="comment_content">
           <p>"{{ comment.content }}</p>
@@ -242,6 +243,7 @@ export default {
 .actions_post {
   display: flex;
   justify-content: end;
+
 }
 
 .btn_round {
@@ -262,12 +264,11 @@ export default {
   width: 85%;
   background-color: #fff;
   border-radius: 0.5rem;
-  padding: 1rem;
-  margin: 1rem auto;
+  padding: 1rem 1rem 0 1rem;
+  margin: 1rem auto 0 auto;
 }
 
 .comment_content {
-  border-bottom: solid 1px #f2f2f2;
-  box-shadow: -0.3rem 0.3rem 0.6rem #c2c2c2;
+  border-bottom: solid 2px #f2f2f2;
 }
 </style>

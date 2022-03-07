@@ -4,7 +4,7 @@
     <div class="feed">
       <div>
         <h1>À la une...</h1>
-        <!-- FEED DES POSTS -->
+        <!-- POST FEED -->
         <article
           v-for="(post, i) in posts"
           v-bind:key="post.id"
@@ -108,6 +108,7 @@ export default {
         this.deleteResult = err.message;
       }
     },
+    
     dateParser(date) {
       let newDate = new Date(date).toLocaleString("fr-FR", {
         year: "numeric",

@@ -12,7 +12,7 @@ exports.createComment = (req, res) => {
     });
     return;
   }
-
+  
   // Create a Comment
   const comment = {
     content: req.body.content,
@@ -102,6 +102,31 @@ exports.updateComment = (req, res) => {
     });
 };
 
+// Delete a Comment with the specified id in the request
+exports.deleteComment = (req, res) => {
+  const id = req.params.id;
+
+  Comment.destroy({
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Comment was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Comment with id=${id}. Maybe Comment was not found!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Comment with id=" + id,
+      });
+    });
+};
+
 // Report a Comment by the id in the request
 exports.reportComment = (req, res) => {
   const id = req.params.id;
@@ -173,31 +198,6 @@ exports.findAllReportedComments = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving reported comments.",
-      });
-    });
-};
-
-// Delete a Comment with the specified id in the request
-exports.deleteComment = (req, res) => {
-  const id = req.params.id;
-
-  Comment.destroy({
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "Comment was deleted successfully!",
-        });
-      } else {
-        res.send({
-          message: `Cannot delete Comment with id=${id}. Maybe Comment was not found!`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Could not delete Comment with id=" + id,
       });
     });
 };

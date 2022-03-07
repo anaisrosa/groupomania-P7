@@ -107,6 +107,32 @@ exports.updatePost = (req, res) => {
     });
 };
 
+// Delete a Post with the specified id in the request
+exports.deletePost = (req, res) => {
+  const id = req.params.id;
+
+  Post.destroy({
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Post was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Post with id=${id}. Maybe Post was not found!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Post with id=" + id,
+      });
+    });
+};
+
+
 // Report a Post by the id in the request
 exports.reportPost = (req, res) => {
   const id = req.params.id;
@@ -134,24 +160,22 @@ exports.reportPost = (req, res) => {
     });
 };
 
-
-
 // Authorize a Post by the id in the request
 exports.AuthorizePost = (req, res) => {
     const id = req.params.id;
     console.log(id);
   
-    Post.update(req.body, {
+    Post.update({ reported : false} , {
       where: { id: id },
       
     })
       .then((num) => {
         if (num == 1) {
-          res.send({
+          res.status(200).send({
             message: "Post was authorized successfully.",
           });
         } else {
-          res.send({
+          res.status(404).send({
             message: `Cannot authorize Post with id=${id}. Maybe Post was not found or req.body is empty!`,
           });
         }
@@ -210,30 +234,6 @@ exports.findAllReportedPosts = (req, res) => {
     });
 };
 
-// Delete a Post with the specified id in the request
-exports.deletePost = (req, res) => {
-  const id = req.params.id;
-
-  Post.destroy({
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "Post was deleted successfully!",
-        });
-      } else {
-        res.send({
-          message: `Cannot delete Post with id=${id}. Maybe Post was not found!`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Could not delete Post with id=" + id,
-      });
-    });
-};
 
 
 
