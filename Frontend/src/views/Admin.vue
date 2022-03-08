@@ -13,7 +13,7 @@
         </p>
         <!-- DISPLAY REPORTED POSTS-->
         <div class="admin_posts">
-          <h2>Liste des posts à modérer</h2>
+          <h2 v-if="posts.length > 0">Liste des posts à modérer</h2>
           <article v-for="(post, i) in posts" v-bind:key="post.id" class="card">
             <div class="info_author">
               <p>
@@ -39,7 +39,7 @@
         </div>
         <!-- DISPLAY REPORTED COMMENTS-->
         <div class="admin_comments">
-          <h2>Liste des commentaires à modérer</h2>
+          <h2 v-if="comments.length > 0">>Liste des commentaires à modérer</h2>
           <article
             v-for="(comment, i) in comments"
             v-bind:key="comment.id"
