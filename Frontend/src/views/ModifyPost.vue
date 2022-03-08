@@ -171,4 +171,10 @@ label {
 background-color: #f26549;
 color: #f7e3e3;
 }
+
+@media all and (max-width: 670px){
+.edit_post {
+padding: 2rem;
+}
+}
 </style>

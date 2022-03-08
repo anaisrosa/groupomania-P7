@@ -129,4 +129,11 @@ h1 {
   font-weight: bold;
   background-color: #f7e3e3;
 }
+
+@media all and (max-width: 670px){
+.new_post_form  {
+padding: 2rem;
+}
+
+}
 </style>

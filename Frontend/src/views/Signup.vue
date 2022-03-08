@@ -215,25 +215,6 @@ transform: scale(1.05);
 
 } 
 
-/* RESPONSIVE LARGE > LAPTOP */
-@media  only screen and (min-device-width: 1025px) {
-
-}
-
-/* RESPONSIVE MEDIUM > IPAD */
-@media only screen 
-and (min-device-width: 768px) 
-and (max-device-width: 1024px)  {
-
-}
-
-/* RESPONSIVE SMALL > MOBILE */
-@media only screen 
-and (max-width: 767px)
-and (min-device-width: 414px) {
-  
- 
-}
 
 
 </style>

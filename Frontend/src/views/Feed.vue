@@ -172,7 +172,7 @@ a {
 
 .actions_post {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .round_btn {
@@ -188,5 +188,15 @@ a {
 
 .round_btn:hover {
   color: #fd2d01;
+}
+
+@media all and (max-width: 670px){
+.feed {
+padding: 2rem;
+}
+.postCard {
+  padding: 0.5rem;
+  margin: 1.5rem 0;
+}
 }
 </style>

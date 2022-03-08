@@ -4,7 +4,7 @@
     <div class="admin">
       <div>
         <h1>C'est à vous...</h1>
-        <p>
+        <p class="disclamer"> 
           En tant que modérateur, votre rôle est important !<br />
           Si vous éstimez que ces posts / commentaires ne sont pas appropriés,
           ou qu'ils peuvent heurter la senibilité de certains, vous pouvez les
@@ -262,7 +262,7 @@ export default {
 </script>
 
 <style scoped>
-.feed {
+.admin {
   max-width: 80%;
   margin: 2rem 0;
   padding: 50px;
@@ -278,6 +278,10 @@ h1 {
 h2 {
   text-align: right;
   margin: 2.5rem 0 1rem 0;
+}
+
+.disclamer{
+  text-align: justify;
 }
 
 a {
@@ -323,7 +327,7 @@ a {
 
 .action_btn {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .round_btn {
@@ -343,5 +347,15 @@ a {
 
 .green_icon:hover {
   color: green;
+}
+
+@media all and (max-width: 670px){
+.admin {
+padding: 2rem;
+}
+.card {
+  padding: 0.5rem;
+  margin: 1.5rem 0;
+}
 }
 </style>

@@ -19,11 +19,26 @@
 #router-view{
   margin: 6.5rem 0
 }
+  /* @media only screen
+  and (max-width: 671px)
+  and (max-width: 1024px)
+  {
+  #app {
+  padding: 0 3rem;
+  margin: 0;
+  }
+  } */
 
 @media all and (max-width: 670px){
 #app {
-padding: 0;
+padding: 0 2rem;
+}
+
+#router-view{
+  margin:4rem 0;
 }
 }
+
+
 
 </style>

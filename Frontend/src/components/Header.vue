@@ -2,7 +2,7 @@
   <div class="header">
     <div>
       <img
-        src="icon-left-font.png"
+        src="../assets/icon-left-font.png"
         alt="logo_groupomania"
         id="logo_groupomania"
       />
@@ -83,7 +83,7 @@ export default {
 #nav {
   padding: 1rem 0.5rem 1rem 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 #nav a {
@@ -99,5 +99,13 @@ export default {
 
 #nav a:hover{
 color: #fd2d01;
+}
+
+@media all and (max-width: 670px){
+.header{
+  display:flex;
+  flex-direction: column;
+  align-content: flex-end;
+}
 }
 </style>

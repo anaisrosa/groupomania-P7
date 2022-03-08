@@ -95,6 +95,15 @@ export default {
 
 <style scoped>
 
+.report_comment {
+  max-width: 80%;
+  margin: 2rem 0;
+  padding: 50px;
+  border: solid 3px #fd2d01;
+  border-radius: 1rem;
+  box-shadow: -0.3rem 0.3rem 0.6rem #c2c2c2;
+}
+
 .comment {
   color:#fd2d01;
   margin: 1rem 0 3rem 0;
@@ -115,5 +124,11 @@ export default {
 background-color: #f26549;
 color: #f7e3e3;
 } 
+
+@media all and (max-width: 670px){
+.report_comment {
+padding: 2rem;
+}
+}
 
 </style>
